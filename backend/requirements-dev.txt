@@ -6,7 +6,7 @@ httpx==0.26.0
 
 # Linting & Formatting
 ruff==0.1.13
-mypy==1.8.0
+mypy==1.19.1
 
 # Type stubs
 types-redis==4.6.0.11

@@ -24,6 +24,12 @@ class Settings(BaseSettings):
     QDRANT_PORT: int = 6333
     QDRANT_COLLECTION: str = "biomedical_papers"
 
+    # Neo4j Graph Database
+    NEO4J_URI: str = "bolt://localhost:7687"
+    NEO4J_USER: str = "neo4j"
+    NEO4J_PASSWORD: str = "password"
+    NEO4J_DATABASE: str = "neo4j"
+
     # External APIs
     PUBMED_API_KEY: str = ""
     OPENAI_API_KEY: str = ""

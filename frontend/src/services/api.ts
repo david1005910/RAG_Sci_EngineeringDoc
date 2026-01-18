@@ -355,7 +355,11 @@ export const trendsApi = {
 
   getHotTopics: async (limit: number = 10): Promise<HotTopic[]> => {
     const response = await api.get('/trends/hot', { params: { limit } })
-    return response.data.topics
+    return response.data.topics.map((t: { keyword: string; count: number; growth_rate: number }) => ({
+      keyword: t.keyword,
+      count: t.count,
+      growthRate: t.growth_rate,
+    }))
   },
 
   analyzeTrend: async (query: string, language: string = 'ko'): Promise<TrendAnalysis> => {

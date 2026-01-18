@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.core.config import settings
 from src.core.csrf import CSRFMiddleware
 from src.core.database import init_db, close_db
-from src.api.v1 import auth, search, chat, library, trends, vectordb
+from src.api.v1 import auth, search, chat, library, trends, vectordb, graph
 
 # Configure logging
 logging.basicConfig(
@@ -75,6 +75,7 @@ app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
 app.include_router(library.router, prefix="/api/v1/library", tags=["Library"])
 app.include_router(trends.router, prefix="/api/v1/trends", tags=["Trends"])
 app.include_router(vectordb.router, prefix="/api/v1/vectordb", tags=["VectorDB"])
+app.include_router(graph.router, prefix="/api/v1/graph", tags=["GraphDB"])
 
 
 @app.get("/", tags=["Root"])

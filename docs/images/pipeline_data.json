@@ -1,0 +1,140 @@
+{
+  "pipeline_name": "Bio-RAG Pipeline",
+  "description": "AI 기반 바이오메디컬 연구 플랫폼 파이프라인",
+  "steps": [
+    {
+      "id": 1,
+      "name": "Data Collection",
+      "name_ko": "데이터 수집",
+      "description": "PubMed API에서 논문 메타데이터 수집",
+      "color": "#3B82F6",
+      "icon": "📥",
+      "details": [
+        "PubMed E-utilities API 호출",
+        "논문 제목, 초록, 저자 추출",
+        "Rate Limit: 10 req/sec"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Text Preprocessing",
+      "name_ko": "텍스트 전처리",
+      "description": "텍스트 정제 및 청킹",
+      "color": "#10B981",
+      "icon": "🔧",
+      "details": [
+        "특수문자 제거",
+        "참조번호 정규화",
+        "512 토큰 단위 청킹"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Embedding Generation",
+      "name_ko": "임베딩 생성",
+      "description": "OpenAI API로 벡터 임베딩 생성",
+      "color": "#8B5CF6",
+      "icon": "🧮",
+      "details": [
+        "text-embedding-3-small 모델",
+        "1536 차원 벡터",
+        "배치 처리 (100개씩)"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Vector Storage",
+      "name_ko": "벡터 저장",
+      "description": "Qdrant에 벡터 인덱싱",
+      "color": "#F59E0B",
+      "icon": "💾",
+      "details": [
+        "Qdrant Vector DB",
+        "HNSW 인덱스",
+        "메타데이터 저장"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Query Processing",
+      "name_ko": "쿼리 처리",
+      "description": "사용자 질문 처리 및 임베딩",
+      "color": "#EC4899",
+      "icon": "❓",
+      "details": [
+        "한글 → 영어 번역",
+        "쿼리 임베딩 생성",
+        "검색 파라미터 설정"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Hybrid Search",
+      "name_ko": "하이브리드 검색",
+      "description": "Dense + Sparse 검색 융합",
+      "color": "#06B6D4",
+      "icon": "🔍",
+      "details": [
+        "Dense: 의미 유사도 (70%)",
+        "Sparse: 키워드 매칭 (30%)",
+        "Score Fusion"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Context Building",
+      "name_ko": "컨텍스트 구성",
+      "description": "검색 결과로 프롬프트 구성",
+      "color": "#EF4444",
+      "icon": "📋",
+      "details": [
+        "Top-K 문서 선택",
+        "관련성 점수 기반 정렬",
+        "프롬프트 템플릿 적용"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "LLM Generation",
+      "name_ko": "LLM 응답 생성",
+      "description": "GPT-4로 답변 생성",
+      "color": "#22C55E",
+      "icon": "🤖",
+      "details": [
+        "GPT-4 API 호출",
+        "컨텍스트 기반 응답",
+        "출처 인용 포함"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": 1,
+      "to": 2
+    },
+    {
+      "from": 2,
+      "to": 3
+    },
+    {
+      "from": 3,
+      "to": 4
+    },
+    {
+      "from": 4,
+      "to": 5
+    },
+    {
+      "from": 5,
+      "to": 6
+    },
+    {
+      "from": 6,
+      "to": 7
+    },
+    {
+      "from": 7,
+      "to": 8
+    }
+  ]
+}
